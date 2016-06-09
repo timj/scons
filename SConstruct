@@ -336,8 +336,9 @@ try:
         zf = zipfile.ZipFile(str(target[0]), 'w', compression=zipfile.ZIP_DEFLATED)
         olddir = os.getcwd()
         os.chdir(env['CD'])
-        try: os.path.walk(env['PSV'], visit, zf)
-        finally: os.chdir(olddir)
+        for root, dirs, files in os.walk(env['PSV']):
+            visit(zf, root, files)
+        os.chdir(olddir)
         zf.close()
 
     def unzipit(env, target, source):

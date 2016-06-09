@@ -925,10 +925,10 @@ for p in [ scons ]:
         digest = os.path.join(gentoo, 'files', 'digest-scons-%s' % version)
         env.Command(ebuild, os.path.join('gentoo', 'scons.ebuild.in'), SCons_revision)
         def Digestify(target, source, env):
-            import md5
+            from hashlib import md5
             src = source[0].rfile()
-            contents = open(str(src)).read()
-            sig = md5.new(contents).hexdigest()
+            contents = open(str(src), 'rb').read()
+            sig = md5(contents).hexdigest()
             bytes = os.stat(str(src))[6]
             open(str(target[0]), 'w').write("MD5 %s %s %d\n" % (sig,
                                                                 src.name,

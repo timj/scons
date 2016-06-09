@@ -144,7 +144,7 @@ def _get_swig_version(env, swig):
     if pipe.wait() != 0: return
 
     # MAYBE:   out = SCons.Util.to_str (pipe.stdout.read())
-    out = pipe.stdout.read()
+    out = pipe.stdout.read().decode()
     match = re.search(r'SWIG Version\s+(\S+).*', out, re.MULTILINE)
     if match:
         if verbose: print("Version is:%s"%match.group(1))

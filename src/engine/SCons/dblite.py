@@ -1,6 +1,8 @@
 # dblite.py module contributed by Ralf W. Grosse-Kunstleve.
 # Extended for Unicode by Steven Knight.
 from __future__ import print_function
+from builtins import str
+from builtins import object
 
 import SCons.compat
 
@@ -15,19 +17,19 @@ ignore_corrupt_dbfiles = 0
 def corruption_warning(filename):
     print("Warning: Discarding corrupt database:", filename)
 
-try: unicode
+try: str
 except NameError:
     def is_string(s):
         return isinstance(s, str)
 else:
     def is_string(s):
-        return type(s) in (str, unicode)
+        return type(s) in (str, str)
 def is_bytes(s):
     return isinstance (s, bytes)
 try:
-    unicode('a')
+    str('a')
 except NameError:
-    def unicode(s): return s
+    def str(s): return s
 
 dblite_suffix = '.dblite'
 if bytes is not str:
@@ -184,23 +186,23 @@ def _exercise():
   assert len(db) == 0
   db["foo"] = "bar"
   assert db["foo"] == "bar"
-  db[unicode("ufoo")] = unicode("ubar")
-  assert db[unicode("ufoo")] == unicode("ubar")
+  db[str("ufoo")] = str("ubar")
+  assert db[str("ufoo")] == str("ubar")
   db.sync()
   db = open("tmp", "c")
   assert len(db) == 2, len(db)
   assert db["foo"] == "bar"
   db["bar"] = "foo"
   assert db["bar"] == "foo"
-  db[unicode("ubar")] = unicode("ufoo")
-  assert db[unicode("ubar")] == unicode("ufoo")
+  db[str("ubar")] = str("ufoo")
+  assert db[str("ubar")] == str("ufoo")
   db.sync()
   db = open("tmp", "r")
   assert len(db) == 4, len(db)
   assert db["foo"] == "bar"
   assert db["bar"] == "foo"
-  assert db[unicode("ufoo")] == unicode("ubar")
-  assert db[unicode("ubar")] == unicode("ufoo")
+  assert db[str("ufoo")] == str("ubar")
+  assert db[str("ubar")] == str("ufoo")
   try:
     db.sync()
   except IOError as e:

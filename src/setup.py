@@ -33,6 +33,7 @@ NOTE: Installed SCons is not importable like usual Python packages. It is
 """
 
 from __future__ import print_function
+from builtins import object
 
 __revision__ = "__FILE__ __REVISION__ __DATE__ __DEVELOPER__"
 

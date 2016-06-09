@@ -22,6 +22,9 @@
 #
 
 from __future__ import print_function
+from builtins import map
+from builtins import str
+from builtins import object
 
 __revision__ = "__FILE__ __REVISION__ __DATE__ __DEVELOPER__"
 
@@ -164,7 +167,7 @@ class TestEnvironmentFixture(object):
         default_keys = { 'CC' : 'cc',
                          'CCFLAGS' : '-DNDEBUG',
                          'ENV' : { 'TMP' : '/tmp' } }
-        for key, value in default_keys.items():
+        for key, value in list(default_keys.items()):
             if key not in kw:
                 kw[key] = value
         if 'BUILDERS' not in kw:

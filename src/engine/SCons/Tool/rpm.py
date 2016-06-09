@@ -9,6 +9,8 @@ selection method.
 The rpm tool calls the rpmbuild command. The first and only argument should a
 tar.gz consisting of the source file and a specfile.
 """
+from builtins import zip
+from builtins import str
 
 #
 # __COPYRIGHT__

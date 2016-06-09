@@ -2,6 +2,14 @@
 
 Various utility functions go here.
 """
+from future import standard_library
+standard_library.install_aliases()
+from builtins import bytes
+from builtins import zip
+from builtins import map
+from builtins import str
+from builtins import range
+from builtins import object
 #
 # __COPYRIGHT__
 #
@@ -38,12 +46,12 @@ except ImportError as e:
     from collections import UserDict
 
 try:
-    from UserList import UserList
+    from collections import UserList
 except ImportError as e:
     from collections import UserList
 
 try:
-    from UserString import UserString
+    from collections import UserString
 except ImportError as e:
     from collections import UserString
 
@@ -57,11 +65,11 @@ MethodType      = types.MethodType
 FunctionType    = types.FunctionType
 
 try:
-    unicode
+    str
 except NameError:
     UnicodeType = str
 else:
-    UnicodeType = unicode
+    UnicodeType = str
 
 def dictify(keys, values, result={}):
     for k, v in zip(keys, values):
@@ -131,7 +139,7 @@ class NodeList(UserList):
     >>> someList.strip()
     [ 'foo', 'bar' ]
     """
-    def __nonzero__(self):
+    def __bool__(self):
         return len(self.data) != 0
 
     def __bool__(self):
@@ -270,7 +278,7 @@ def print_tree(root, child_func, prune=0, showtags=0, margin=[0], visited=None):
                       '        N  = no clean\n' +
                       '         H = no cache\n' +
                       '\n')
-            sys.stdout.write(unicode(legend))
+            sys.stdout.write(str(legend))
 
         tags = ['[']
         tags.append(' E'[IDX(root.exists())])
@@ -335,14 +343,14 @@ SequenceTypes = (list, tuple, UserList)
 # explicitly with str and unicode instead of simply comparing
 # with basestring. (at least on Python 2.5.1)
 try:
-    StringTypes = (str, unicode, UserString)
+    StringTypes = (str, str, UserString)
 except NameError:
     StringTypes = (str, UserString)
 
 # Empirically, it is faster to check explicitly for str and
 # unicode than for basestring.
 try:
-    BaseStringTypes = (str, unicode)
+    BaseStringTypes = (str, str)
 except NameError:
     BaseStringTypes = (str)
 
@@ -477,7 +485,7 @@ _semi_deepcopy_dispatch = d = {}
 
 def semi_deepcopy_dict(x, exclude = [] ):
     copy = {}
-    for key, val in x.items():
+    for key, val in list(x.items()):
         # The regular Python copy.deepcopy() also deepcopies the key,
         # as follows:
         #
@@ -1037,7 +1045,7 @@ class OrderedDict(UserDict):
         if key not in self._keys: self._keys.append(key)
 
     def update(self, dict):
-        for (key, val) in dict.items():
+        for (key, val) in list(dict.items()):
             self.__setitem__(key, val)
 
     def values(self):
@@ -1059,7 +1067,7 @@ class Selector(OrderedDict):
             # Try to perform Environment substitution on the keys of
             # the dictionary before giving up.
             s_dict = {}
-            for (k,v) in self.items():
+            for (k,v) in list(self.items()):
                 if k is not None:
                     s_k = env.subst(k)
                     if s_k in s_dict:
@@ -1524,7 +1532,7 @@ class Null(object):
         return self
     def __repr__(self):
         return "Null(0x%08X)" % id(self)
-    def __nonzero__(self):
+    def __bool__(self):
         return False
     def __bool__(self):
         return False

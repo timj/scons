@@ -12,6 +12,10 @@ their own "tool specification" in an arbitrary callable function.  No
 one needs to use or tie in to this subsystem in order to roll their own
 tool definition.
 """
+from __future__ import print_function
+from builtins import filter
+from builtins import str
+from builtins import object
 
 #
 # __COPYRIGHT__

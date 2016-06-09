@@ -1,3 +1,5 @@
+from builtins import chr
+from builtins import range
 #!/usr/bin/env python
 #
 # __COPYRIGHT__

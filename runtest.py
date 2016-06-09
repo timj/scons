@@ -78,6 +78,10 @@
 # you can find the appropriate code in the 0.04 version of this script,
 # rather than reinventing that wheel.)
 from __future__ import print_function
+from future import standard_library
+standard_library.install_aliases()
+from builtins import range
+from builtins import object
 
 
 import getopt
@@ -93,7 +97,7 @@ try:
     try:                        # python3
         from queue import Queue
     except ImportError as e:    # python2
-        from Queue import Queue
+        from queue import Queue
     threading_ok = True
 except ImportError:
     print("Can't import threading or queue")

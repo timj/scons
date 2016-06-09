@@ -8,6 +8,7 @@
 # changes on Windows, where I don't have access to my Aegis tools.
 #
 from __future__ import print_function
+from builtins import str
 
 import getopt
 import os.path

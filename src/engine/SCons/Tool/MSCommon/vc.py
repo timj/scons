@@ -1,3 +1,4 @@
+from builtins import str
 #
 # __COPYRIGHT__
 #
@@ -514,7 +515,7 @@ def msvc_setup_env(env):
         SCons.Warnings.warn(SCons.Warnings.VisualCMissingWarning, warn_msg)
         return None
 
-    for k, v in d.items():
+    for k, v in list(d.items()):
         debug('vc.py:msvc_setup_env() env:%s -> %s'%(k,v))
         env.PrependENVPath(k, v, delete_existing=True)
 

@@ -3,6 +3,8 @@
 Stuff for processing Java.
 
 """
+from builtins import str
+from builtins import object
 
 #
 # __COPYRIGHT__

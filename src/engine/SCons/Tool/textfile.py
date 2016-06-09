@@ -1,3 +1,4 @@
+from builtins import str
 # -*- python -*-
 #
 # __COPYRIGHT__

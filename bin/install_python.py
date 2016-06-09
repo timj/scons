@@ -7,6 +7,7 @@
 # be reasonably generic to any POSIX-style system with a /usr/local
 # hierarchy.
 from __future__ import print_function
+from builtins import str
 
 import getopt
 import os

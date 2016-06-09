@@ -5,6 +5,7 @@ Common code for the various D tools.
 Coded by Russel Winder (russel@winder.org.uk)
 2012-09-06
 """
+from builtins import str
 #
 # __COPYRIGHT__
 #

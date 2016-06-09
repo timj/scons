@@ -10,6 +10,7 @@
 # and/or .mod files containing the ENTITY definitions for each item.
 #
 from __future__ import print_function
+from builtins import object
 
 import getopt
 import os
@@ -104,7 +105,7 @@ Link_Entities_Header = """\
 class SCons_XML(object):
     def __init__(self, entries, **kw):
         self.values = entries
-        for k, v in kw.items():
+        for k, v in list(kw.items()):
             setattr(self, k, v)
             
     def fopen(self, name):

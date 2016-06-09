@@ -26,6 +26,7 @@
 This tests the -j command line option, and the num_jobs
 SConscript settable option.
 """
+from builtins import map
 
 __revision__ = "__FILE__ __REVISION__ __DATE__ __DEVELOPER__"
 

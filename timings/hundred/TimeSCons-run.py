@@ -30,6 +30,7 @@ copying a file from a corresponding list of $TARGET_COUNT source files.
 The source files themselves are each built by a Python function action
 that's the equivalent of "echo contents > $TARGET".
 """
+from builtins import range
 
 import TestSCons
 

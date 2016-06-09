@@ -1,3 +1,4 @@
+from builtins import str
 #!/usr/bin/env python
 #
 # __COPYRIGHT__
@@ -32,7 +33,7 @@ _StringIO = io.StringIO
 # when we drop support for Python 2.6.
 class StringIO(_StringIO):
     def write(self, s):
-        _StringIO.write(self, unicode(s))
+        _StringIO.write(self, str(s))
 
 import TestSCons
 

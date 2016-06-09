@@ -1,3 +1,4 @@
+from builtins import object
 # __COPYRIGHT__
 #
 # Benchmarks for testing the selection of dependency changed functions
@@ -30,13 +31,13 @@ def use_if_tests(env, dep, arg):
     return func(arg)
 
 
-class Environment():
+class Environment(object):
     def __init__(self, t):
         self.t = t
     def get_type(self):
         return self.t
 
-class Node():
+class Node(object):
     def func1(self, arg):
         pass
     def func2(self, arg):

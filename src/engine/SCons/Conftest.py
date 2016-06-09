@@ -2,6 +2,7 @@
 
 Autoconf-like configuration support; low level implementation of tests.
 """
+from builtins import str
 
 #
 # Copyright (c) 2003 Stichting NLnet Labs

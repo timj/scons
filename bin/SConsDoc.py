@@ -25,6 +25,7 @@
 # Module for handling SCons documentation processing.
 #
 from __future__ import print_function
+from builtins import object
 
 __doc__ = """
 This module parses home-brew XML files that document various things
@@ -201,7 +202,7 @@ default_xsd = os.path.join('doc','xsd','scons.xsd')
 
 ARG = "dbscons"
 
-class Libxml2ValidityHandler:
+class Libxml2ValidityHandler(object):
     
     def __init__(self):
         self.errors = []
@@ -218,7 +219,7 @@ class Libxml2ValidityHandler:
         self.warnings.append(msg)
 
 
-class DoctypeEntity:
+class DoctypeEntity(object):
     def __init__(self, name_, uri_):
         self.name = name_
         self.uri = uri_
@@ -230,7 +231,7 @@ class DoctypeEntity:
 
         return txt
         
-class DoctypeDeclaration:
+class DoctypeDeclaration(object):
     def __init__(self, name_=None):
         self.name = name_
         self.entries = []
@@ -255,7 +256,7 @@ class DoctypeDeclaration:
         return content
 
 if not has_libxml2:
-    class TreeFactory:
+    class TreeFactory(object):
         def __init__(self):
             pass
         
@@ -364,7 +365,7 @@ if not has_libxml2:
             return [root]
         
 else:        
-    class TreeFactory:
+    class TreeFactory(object):
         def __init__(self):
             pass
         
@@ -565,7 +566,7 @@ else:
 tf = TreeFactory()
 
 
-class SConsDocTree:
+class SConsDocTree(object):
     def __init__(self):
         self.nsmap = {'dbx' : dbxsd}
         self.doc = None
@@ -598,7 +599,7 @@ class SConsDocTree:
             # Create xpath context
             self.xpath_context = self.doc.xpathNewContext()
             # Register namespaces
-            for key, val in self.nsmap.items():
+            for key, val in list(self.nsmap.items()):
                 self.xpath_context.xpathRegisterNs(key, val)
             
     def __del__(self):

@@ -30,6 +30,10 @@ selection method.
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 from __future__ import print_function
+from builtins import zip
+from builtins import map
+from builtins import str
+from builtins import object
 
 __revision__ = "__FILE__ __REVISION__ __DATE__ __DEVELOPER__"
 
@@ -244,7 +248,7 @@ def add_versioned_targets_to_INSTALLED_FILES(target, source, env):
     Verbose = False
     _INSTALLED_FILES.extend(target)
     if Verbose:
-        print("add_versioned_targets_to_INSTALLED_FILES: target={:r}".format(map(str, target)))
+        print("add_versioned_targets_to_INSTALLED_FILES: target={:r}".format(list(map(str, target))))
     symlinks = listShlibLinksToInstall(target[0], source, env)
     if symlinks:
         SCons.Tool.EmitLibSymlinks(env, symlinks, target[0])

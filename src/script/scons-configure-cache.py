@@ -1,3 +1,5 @@
+from __future__ import print_function
+from builtins import range
 #! /usr/bin/env python
 #
 # SCons - a Software Constructor
@@ -41,14 +43,14 @@ import json
 import os
 
 def rearrange_cache_entries(current_prefix_len, new_prefix_len):
-    print 'Changing prefix length from', current_prefix_len, 'to', new_prefix_len
+    print('Changing prefix length from', current_prefix_len, 'to', new_prefix_len)
     dirs = set()
     old_dirs = set()
     for file in glob.iglob(os.path.join('*', '*')):
         name = os.path.basename(file)
         dir = name[:current_prefix_len].upper()
         if dir not in old_dirs:
-            print 'Migrating', dir
+            print('Migrating', dir)
             old_dirs.add(dir)
         dir = name[:new_prefix_len].upper()
         if dir not in dirs:
@@ -99,7 +101,7 @@ for param in config_entries:
 parser.add_argument('--version', action='version', version='%(prog)s 1.0')
 
 # Get the command line as a dict without any of the unspecified entries.
-args = dict(filter(lambda x: x[1], vars(parser.parse_args()).items()))
+args = dict([x for x in list(vars(parser.parse_args()).items()) if x[1]])
 
 # It seems somewhat strange to me, but positional arguments don't get the -
 # in the name changed to _, whereas optional arguments do...

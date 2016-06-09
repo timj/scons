@@ -21,6 +21,8 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 from __future__ import division, print_function
+from builtins import str
+from builtins import object
 
 """
 QMTest classes to support SCons' testing and Aegis-inspired workflow.
@@ -92,7 +94,7 @@ def get_explicit_arguments(e):
     # Determine which subset of the 'arguments' have been set
     # explicitly.
     explicit_arguments = {}
-    for name, field in arguments.items():
+    for name, field in list(arguments.items()):
         # Do not record computed fields.
         if field.IsComputed():
             continue
@@ -134,7 +136,7 @@ def check_exit_status(result, prefix, desc, status):
 
 
 
-class Null:
+class Null(object):
     pass
 
 _null = Null()

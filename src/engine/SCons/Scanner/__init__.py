@@ -3,6 +3,8 @@
 The Scanner package for the SCons software construction utility.
 
 """
+from builtins import map
+from builtins import object
 
 #
 # __COPYRIGHT__

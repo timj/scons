@@ -42,6 +42,9 @@ their own platform definition.
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 from __future__ import print_function
+from builtins import map
+from builtins import str
+from builtins import object
 
 __revision__ = "__FILE__ __REVISION__ __DATE__ __DEVELOPER__"
 

@@ -26,6 +26,7 @@
 This file implements the warnings framework for SCons.
 
 """
+from builtins import map
 
 __revision__ = "__FILE__ __REVISION__ __DATE__ __DEVELOPER__"
 

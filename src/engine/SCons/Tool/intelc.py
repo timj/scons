@@ -31,6 +31,8 @@ selection method.
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 from __future__ import division, print_function
+from past.builtins import cmp
+from builtins import str
 
 __revision__ = "__FILE__ __REVISION__ __DATE__ __DEVELOPER__"
 
@@ -500,14 +502,14 @@ def generate(env, version=None, abi=None, topdir=None, verbose=0):
                    'LIB'             : libdir,
                    'PATH'            : bindir,
                    'LD_LIBRARY_PATH' : libdir}
-            for p in paths.keys():
+            for p in list(paths.keys()):
                 env.PrependENVPath(p, os.path.join(topdir, paths[p]))
         if is_mac:
             paths={'INCLUDE'         : 'include',
                    'LIB'             : libdir,
                    'PATH'            : bindir,
                    'LD_LIBRARY_PATH' : libdir}
-            for p in paths.keys():
+            for p in list(paths.keys()):
                 env.PrependENVPath(p, os.path.join(topdir, paths[p]))
         if is_windows:
             #       env key    reg valname   default subdir of top

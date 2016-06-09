@@ -6,6 +6,8 @@ There normally shouldn't be any need to import this module directly.  It
 will usually be imported through the generic SCons.Platform.Platform()
 selection method.
 """
+from builtins import str
+from builtins import object
 
 #
 # __COPYRIGHT__

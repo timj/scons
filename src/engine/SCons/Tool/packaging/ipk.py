@@ -1,5 +1,7 @@
 """SCons.Tool.Packaging.ipk
 """
+from builtins import str
+from builtins import filter
 
 #
 # __COPYRIGHT__
@@ -169,7 +171,7 @@ Description: $X_IPK_DESCRIPTION
 
     #
     # close all opened files
-    for f in opened_files.values():
+    for f in list(opened_files.values()):
         f.close()
 
     # call a user specified function

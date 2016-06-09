@@ -5,6 +5,7 @@ Phar Lap ETS tool chain.  Right now, this is linkloc and
 386asm.
 
 """
+from builtins import str
 
 #
 # __COPYRIGHT__

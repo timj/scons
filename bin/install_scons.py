@@ -19,13 +19,16 @@
 # hierarchy.
 
 from __future__ import print_function
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
 
 import getopt
 import os
 import shutil
 import sys
 import tarfile
-from urllib import urlretrieve
+from urllib.request import urlretrieve
 
 from Command import CommandRunner, Usage
 

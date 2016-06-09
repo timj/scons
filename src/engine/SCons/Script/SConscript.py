@@ -6,6 +6,10 @@ files.
 """
 
 from __future__ import print_function
+from builtins import filter
+from builtins import map
+from builtins import str
+from builtins import object
 
 #
 # __COPYRIGHT__
@@ -526,7 +530,7 @@ class SConsEnvironment(SCons.Environment.Base):
             return x
         ls = list(map(subst_element, ls))
         subst_kw = {}
-        for key, val in kw.items():
+        for key, val in list(kw.items()):
             if SCons.Util.is_String(val):
                 val = self.subst(val)
             elif SCons.Util.is_List(val):

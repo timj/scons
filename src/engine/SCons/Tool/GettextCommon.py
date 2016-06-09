@@ -2,6 +2,8 @@
 
 Used by several tools of `gettext` toolset.
 """
+from builtins import str
+from builtins import object
 
 # __COPYRIGHT__
 # 

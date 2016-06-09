@@ -3,6 +3,8 @@
 This module implements the dependency scanner for C/C++ code. 
 
 """
+from builtins import str
+from builtins import object
 
 #
 # __COPYRIGHT__

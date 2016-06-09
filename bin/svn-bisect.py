@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- Python -*-
 from __future__ import division, print_function
+from builtins import str
 
 import sys
 from math import log, ceil

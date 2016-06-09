@@ -2674,7 +2674,7 @@ class File(Base):
             return contents[len(codecs.BOM_UTF16_LE):].decode('utf-16-le')
         if contents.startswith(codecs.BOM_UTF16_BE):
             return contents[len(codecs.BOM_UTF16_BE):].decode('utf-16-be')
-        return contents
+        return contents.decode()
 
     def get_content_hash(self):
         """

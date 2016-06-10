@@ -408,7 +408,7 @@ class ClassicCPP(Classic):
         return n, i
 
     def sort_key(self, include):
-        return SCons.Node.FS._my_normcase(b' '.join(include))
+        return SCons.Node.FS._my_normcase(' '.join(include))
 
 # Local Variables:
 # tab-width:4

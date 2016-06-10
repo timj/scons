@@ -267,7 +267,8 @@ def copy_func(dest, src, symlinks=True):
         shutil.copy2(src, dest)
         return 0
     else:
-        return shutil.copytree(src, dest, symlinks)
+        shutil.copytree(src, dest, symlinks)
+        return 0
 
 Copy = ActionFactory(
     copy_func,

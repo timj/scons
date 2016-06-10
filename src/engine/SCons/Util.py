@@ -1559,16 +1559,16 @@ class NullSeq(Null):
 del __revision__
 
 def to_bytes (s):
-    if isinstance (s, bytes) or bytes is str:
+    if isinstance (s, bytes):
         return s
     else:
-        return bytes (s, 'utf-8')
+        return s.encode("utf-8")
 
 def to_str (s):
-    if bytes is str:
+    if isinstance(s, str):
         return s
     else:
-        return str (s, 'utf-8')
+        return s.decode('utf-8')
 
 # Local Variables:
 # tab-width:4

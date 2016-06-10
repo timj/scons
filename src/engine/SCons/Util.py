@@ -142,9 +142,6 @@ class NodeList(UserList):
     def __bool__(self):
         return len(self.data) != 0
 
-    def __bool__(self):
-        return self.__nonzero__()
-
     def __str__(self):
         return ' '.join(map(str, self.data))
 

@@ -430,9 +430,6 @@ class BuilderBase(object):
     def __bool__(self):
         raise InternalError("Do not test for the Node.builder attribute directly; use Node.has_builder() instead")
 
-    def __bool__(self):
-        return self.__nonzero__()
-
     def get_name(self, env):
         """Attempts to get the name of the Builder.
 

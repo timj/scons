@@ -124,7 +124,7 @@ class SConsignEntry(object):
     XXX As coded below, we do expect a '.binfo' attribute to be added,
     but we'll probably generalize this in the next refactorings.
     """
-    __slots__ = ("binfo", "ninfo", "__weakref__")
+    __slots__ = ("binfo", "ninfo")
     current_version_id = 2
 
     def __init__(self):

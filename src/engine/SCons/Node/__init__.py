@@ -349,7 +349,6 @@ class NodeInfoBase(object):
     Node subclasses should subclass NodeInfoBase to provide their own
     logic for dealing with their own Node-specific signature information.
     """
-    __slots__ = ('__weakref__',)
     current_version_id = 2
     def update(self, node):
         try:
@@ -444,7 +443,7 @@ class BuildInfoBase(object):
     implicit dependencies, and action information.
     """
     __slots__ = ("bsourcesigs", "bdependsigs", "bimplicitsigs", "bactsig",
-                 "bsources", "bdepends", "bact", "bimplicit", "__weakref__")
+                 "bsources", "bdepends", "bact", "bimplicit")
     current_version_id = 2
     def __init__(self):
         # Create an object attribute from the class attribute so it ends up
@@ -541,7 +540,7 @@ class Node(object):
                  '_func_target_from_source']
 
     class Attrs(object):
-        __slots__ = ('shared', '__dict__')
+        __slots__ = ('shared',)
 
 
     def __init__(self):

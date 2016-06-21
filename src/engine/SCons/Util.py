@@ -340,14 +340,14 @@ SequenceTypes = (list, tuple, UserList)
 # explicitly with str and unicode instead of simply comparing
 # with basestring. (at least on Python 2.5.1)
 try:
-    StringTypes = (str, str, UserString)
+    StringTypes = (str, basestring, UserString)
 except NameError:
     StringTypes = (str, UserString)
 
 # Empirically, it is faster to check explicitly for str and
 # unicode than for basestring.
 try:
-    BaseStringTypes = (str, str)
+    BaseStringTypes = (str, basestring)
 except NameError:
     BaseStringTypes = (str)
 

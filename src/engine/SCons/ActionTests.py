@@ -566,24 +566,28 @@ class _ActionActionTestCase(unittest.TestCase):
             result = a("out", "in", env)
             assert result.status == 7, result
             s = sio.getvalue()
-            assert s == "execfunc(['out'], ['in'])\n", s
+            assert s == "execfunc(['out'], ['in'])\n" or \
+                   s == "execfunc([u'out'], [u'in'])\n", s
 
             a.chdir = 'xyz'
             expect = "os.chdir(%s)\nexecfunc(['out'], ['in'])\nos.chdir(%s)\n"
+            expectu = "os.chdir(%s)\nexecfunc([u'out'], [u'in'])\nos.chdir(%s)\n"
 
             sio = io.StringIO()
             sys.stdout = sio
             result = a("out", "in", env)
             assert result.status == 7, result.status
             s = sio.getvalue()
-            assert s == expect % (repr('xyz'), repr(test.workpath())), s
+            assert s == expect % (repr('xyz'), repr(test.workpath())) or \
+                   s == expectu % (repr('xyz'), repr(test.workpath())), s
 
             sio = io.StringIO()
             sys.stdout = sio
             result = a("out", "in", env, chdir='sub')
             assert result.status == 7, result.status
             s = sio.getvalue()
-            assert s == expect % (repr('sub'), repr(test.workpath())), s
+            assert s == expect % (repr('sub'), repr(test.workpath())) or \
+                   s == expectu % (repr('sub'), repr(test.workpath())), s
 
             a.chdir = None
 
@@ -592,7 +596,8 @@ class _ActionActionTestCase(unittest.TestCase):
             result = b("out", "in", env)
             assert result.status == 7, result.status
             s = sio.getvalue()
-            assert s == "firstfunc(['out'], ['in'])\nexecfunc(['out'], ['in'])\n", s
+            assert s == "firstfunc(['out'], ['in'])\nexecfunc(['out'], ['in'])\n" or \
+                   s == "firstfunc([u'out'], [u'in'])\nexecfunc([u'out'], [u'in'])\n", s
 
             SCons.Action.execute_actions = 0
 
@@ -601,14 +606,16 @@ class _ActionActionTestCase(unittest.TestCase):
             result = a("out", "in", env)
             assert result == 0, result
             s = sio.getvalue()
-            assert s == "execfunc(['out'], ['in'])\n", s
+            assert s == "execfunc(['out'], ['in'])\n" or \
+                   s == "execfunc([u'out'], [u'in'])\n", s
 
             sio = io.StringIO()
             sys.stdout = sio
             result = b("out", "in", env)
             assert result == 0, result
             s = sio.getvalue()
-            assert s == "firstfunc(['out'], ['in'])\nexecfunc(['out'], ['in'])\nlastfunc(['out'], ['in'])\n", s
+            assert s == "firstfunc(['out'], ['in'])\nexecfunc(['out'], ['in'])\nlastfunc(['out'], ['in'])\n" or \
+                   s == "firstfunc([u'out'], [u'in'])\nexecfunc([u'out'], [u'in'])\nlastfunc([u'out'], [u'in'])\n", s
 
             SCons.Action.print_actions_presub = 1
             SCons.Action.execute_actions = 1
@@ -618,35 +625,40 @@ class _ActionActionTestCase(unittest.TestCase):
             result = a("out", "in", env)
             assert result.status == 7, result.status
             s = sio.getvalue()
-            assert s == "Building out with action:\n  execfunc(target, source, env)\nexecfunc(['out'], ['in'])\n", s
+            assert s == "Building out with action:\n  execfunc(target, source, env)\nexecfunc(['out'], ['in'])\n" or \
+                   s == "Building out with action:\n  execfunc(target, source, env)\nexecfunc([u'out'], [u'in'])\n", s
 
             sio = io.StringIO()
             sys.stdout = sio
             result = a("out", "in", env, presub=0)
             assert result.status == 7, result.status
             s = sio.getvalue()
-            assert s == "execfunc(['out'], ['in'])\n", s
+            assert s == "execfunc(['out'], ['in'])\n" or \
+                   s == "execfunc([u'out'], [u'in'])\n", s
 
             sio = io.StringIO()
             sys.stdout = sio
             result = a("out", "in", env, presub=1)
             assert result.status == 7, result.status
             s = sio.getvalue()
-            assert s == "Building out with action:\n  execfunc(target, source, env)\nexecfunc(['out'], ['in'])\n", s
+            assert s == "Building out with action:\n  execfunc(target, source, env)\nexecfunc(['out'], ['in'])\n" or \
+                   s == "Building out with action:\n  execfunc(target, source, env)\nexecfunc([u'out'], [u'in'])\n", s
 
             sio = io.StringIO()
             sys.stdout = sio
             result = b(["out"], "in", env, presub=1)
             assert result.status == 7, result.status
             s = sio.getvalue()
-            assert s == "Building out with action:\n  firstfunc(target, source, env)\nfirstfunc(['out'], ['in'])\nBuilding out with action:\n  execfunc(target, source, env)\nexecfunc(['out'], ['in'])\n", s
+            assert s == "Building out with action:\n  firstfunc(target, source, env)\nfirstfunc(['out'], ['in'])\nBuilding out with action:\n  execfunc(target, source, env)\nexecfunc(['out'], ['in'])\n" or \
+                   s == "Building out with action:\n  firstfunc(target, source, env)\nfirstfunc([u'out'], [u'in'])\nBuilding out with action:\n  execfunc(target, source, env)\nexecfunc([u'out'], [u'in'])\n", s
 
             sio = io.StringIO()
             sys.stdout = sio
             result = b(["out", "list"], "in", env, presub=1)
             assert result.status == 7, result.status
             s = sio.getvalue()
-            assert s == "Building out and list with action:\n  firstfunc(target, source, env)\nfirstfunc(['out', 'list'], ['in'])\nBuilding out and list with action:\n  execfunc(target, source, env)\nexecfunc(['out', 'list'], ['in'])\n", s
+            assert s == "Building out and list with action:\n  firstfunc(target, source, env)\nfirstfunc(['out', 'list'], ['in'])\nBuilding out and list with action:\n  execfunc(target, source, env)\nexecfunc(['out', 'list'], ['in'])\n" or \
+                   s == "Building out and list with action:\n  firstfunc(target, source, env)\nfirstfunc([u'out', u'list'], [u'in'])\nBuilding out and list with action:\n  execfunc(target, source, env)\nexecfunc([u'out', u'list'], [u'in'])\n", s
 
             a2 = SCons.Action.Action(execfunc)
 
@@ -655,14 +667,16 @@ class _ActionActionTestCase(unittest.TestCase):
             result = a2("out", "in", env)
             assert result.status == 7, result.status
             s = sio.getvalue()
-            assert s == "Building out with action:\n  execfunc(target, source, env)\nexecfunc(['out'], ['in'])\n", s
+            assert s == "Building out with action:\n  execfunc(target, source, env)\nexecfunc(['out'], ['in'])\n" or \
+                   s == "Building out with action:\n  execfunc(target, source, env)\nexecfunc([u'out'], [u'in'])\n", s
 
             sio = io.StringIO()
             sys.stdout = sio
             result = a2("out", "in", env, presub=0)
             assert result.status == 7, result.status
             s = sio.getvalue()
-            assert s == "execfunc(['out'], ['in'])\n", s
+            assert s == "execfunc(['out'], ['in'])\n" or \
+                   s == "execfunc([u'out'], [u'in'])\n", s
 
             SCons.Action.execute_actions = 0
 
@@ -671,7 +685,8 @@ class _ActionActionTestCase(unittest.TestCase):
             result = a2("out", "in", env, presub=0)
             assert result == 0, result
             s = sio.getvalue()
-            assert s == "execfunc(['out'], ['in'])\n", s
+            assert s == "execfunc(['out'], ['in'])\n" or \
+                   s == "execfunc([u'out'], [u'in'])\n", s
 
             sio = io.StringIO()
             sys.stdout = sio
@@ -702,7 +717,8 @@ class _ActionActionTestCase(unittest.TestCase):
                 result.append(s)
             env['PRINT_CMD_LINE_FUNC'] = my_print_cmd_line
             a("output", "input", env)
-            assert result == ["execfunc(['output'], ['input'])"], result
+            assert result == ["execfunc(['output'], ['input'])"] or \
+                   result == ["execfunc([u'output'], [u'input'])"], result
 
 
         finally:
@@ -1897,7 +1913,8 @@ class ActionCallerTestCase(unittest.TestCase):
         ac = SCons.Action.ActionCaller(af, [], {})
         c = ac.get_contents([], [], Environment())
         assert c == "<built-in function str>" or \
-               c == "<type 'str'>", repr(c)
+               c == "<type 'str'>" or \
+               c == "<class 'future.types.newstr.newstr'>", repr(c)
 
     def test___call__(self):
         """Test calling an ActionCaller"""

@@ -75,6 +75,7 @@ ActionFactory class that provides a __call__() method as a convenient
 way for wrapping up the functions.
 
 """
+from __future__ import unicode_literals
 from builtins import filter
 from builtins import str
 from builtins import map

@@ -87,6 +87,7 @@
 #
 
 from __future__ import print_function
+from builtins import object
 
 import os
 import re
@@ -102,7 +103,7 @@ from SConsDoc import tf as stf
 FT_FILE = 0  # a physical file (=<file>)
 FT_FILEREF = 1  # a reference     (=<scons_example_file>)
 
-class ExampleFile:
+class ExampleFile(object):
     def __init__(self, type_=FT_FILE):
         self.type = type_
         self.name = ''
@@ -112,19 +113,19 @@ class ExampleFile:
     def isFileRef(self):
         return self.type == FT_FILEREF
 
-class ExampleFolder:
+class ExampleFolder(object):
     def __init__(self):
         self.name = ''
         self.chmod = ''
 
-class ExampleCommand:
+class ExampleCommand(object):
     def __init__(self):
         self.edit = None
         self.environment = ''
         self.output = ''
         self.cmd = ''
 
-class ExampleOutput:
+class ExampleOutput(object):
     def __init__(self):
         self.name = ''
         self.tools = ''
@@ -133,7 +134,7 @@ class ExampleOutput:
         self.suffix = ''
         self.commands = []
 
-class ExampleInfo:
+class ExampleInfo(object):
     def __init__(self):
         self.name = ''
         self.files = []
@@ -267,7 +268,7 @@ def ensureExampleOutputsExist(dpath):
         os.mkdir(generated_examples)
 
     examples = readAllExampleInfos(dpath)
-    for key, value in examples.items():
+    for key, value in list(examples.items()):
         # Process all scons_output tags
         for o in value.outputs:
             cpath = os.path.join(generated_examples,
@@ -305,7 +306,7 @@ def createAllExampleOutputs(dpath):
     examples = readAllExampleInfos(dpath)
     total = len(examples)
     idx = 0
-    for key, value in examples.items():
+    for key, value in list(examples.items()):
         # Process all scons_output tags
         print("%.2f%s (%d/%d) %s" % (float(idx + 1) * 100.0 / float(total),
                                      perc, idx + 1, total, key))

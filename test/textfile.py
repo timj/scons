@@ -1,3 +1,4 @@
+from builtins import map
 #!/usr/bin/env python
 #
 # __COPYRIGHT__

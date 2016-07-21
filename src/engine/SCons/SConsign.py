@@ -28,6 +28,7 @@ Writing and reading information to the .sconsign file or files.
 #
 
 from __future__ import print_function
+from builtins import object
 
 __revision__ = "__FILE__ __REVISION__ __DATE__ __DEVELOPER__"
 
@@ -123,7 +124,7 @@ class SConsignEntry(object):
     XXX As coded below, we do expect a '.binfo' attribute to be added,
     but we'll probably generalize this in the next refactorings.
     """
-    __slots__ = ("binfo", "ninfo", "__weakref__")
+    __slots__ = ("binfo", "ninfo")
     current_version_id = 2
 
     def __init__(self):
@@ -153,7 +154,7 @@ class SConsignEntry(object):
         return state
 
     def __setstate__(self, state):
-        for key, value in state.items():
+        for key, value in list(state.items()):
             if key not in ('_version_id','__weakref__'):
                 setattr(self, key, value)
 
@@ -197,7 +198,7 @@ class Base(object):
         pass
 
     def merge(self):
-        for key, node in self.to_be_merged.items():
+        for key, node in list(self.to_be_merged.items()):
             entry = node.get_stored_info()
             try:
                 ninfo = entry.ninfo
@@ -243,7 +244,7 @@ class DB(Base):
             except Exception as e:
                 SCons.Warnings.warn(SCons.Warnings.CorruptSConsignWarning,
                                     "Ignoring corrupt sconsign entry : %s (%s)\n"%(self.dir.get_tpath(), e))
-            for key, entry in self.entries.items():
+            for key, entry in list(self.entries.items()):
                 entry.convert_from_sconsign(dir, key)
 
         if mode == "r":
@@ -270,7 +271,7 @@ class DB(Base):
         # the Repository; we only write to our own .sconsign file,
         # not to .sconsign files in Repositories.
         path = normcase(self.dir.get_internal_path())
-        for key, entry in self.entries.items():
+        for key, entry in list(self.entries.items()):
             entry.convert_to_sconsign()
         db[path] = pickle.dumps(self.entries, 1)
 
@@ -358,7 +359,7 @@ class DirFile(Dir):
                 fname = self.sconsign
             except IOError:
                 return
-        for key, entry in self.entries.items():
+        for key, entry in list(self.entries.items()):
             entry.convert_to_sconsign()
         pickle.dump(self.entries, file, 1)
         file.close()

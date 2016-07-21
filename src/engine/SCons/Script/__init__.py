@@ -10,6 +10,8 @@ some other module.  If it's specific to the "scons" script invocation,
 it goes here.
 
 """
+from future import standard_library
+standard_library.install_aliases()
 
 #
 # __COPYRIGHT__
@@ -43,7 +45,7 @@ import collections
 import os
 
 try:
-    from StringIO import StringIO
+    from io import StringIO
 except ImportError:
     from io import StringIO
 

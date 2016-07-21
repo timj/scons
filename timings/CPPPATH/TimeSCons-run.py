@@ -30,6 +30,7 @@ list of Dir Nodes for the created directories, followed by 'include'.
 A checked-in .c file #includes the .h file to be found in the last
 directory in the list.
 """
+from builtins import range
 
 import TestSCons
 

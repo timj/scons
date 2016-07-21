@@ -1,6 +1,9 @@
 # docbook.py: extension module
 # $Id: docbook.py 8353 2009-03-17 16:57:50Z mzjn $
 from __future__ import print_function
+from __future__ import division
+from builtins import range
+from past.utils import old_div
 
 import sys
 import string
@@ -12,10 +15,10 @@ import math
 # Some globals
 pixelsPerInch = 96.0
 unitHash = { 'in': pixelsPerInch,
-             'cm': pixelsPerInch / 2.54,
-             'mm': pixelsPerInch / 25.4,
-             'pc': (pixelsPerInch / 72.0) * 12,
-             'pt': pixelsPerInch / 72.0,
+             'cm': old_div(pixelsPerInch, 2.54),
+             'mm': old_div(pixelsPerInch, 25.4),
+             'pc': (old_div(pixelsPerInch, 72.0)) * 12,
+             'pt': old_div(pixelsPerInch, 72.0),
              'px': 1 }
 
 # ======================================================================
@@ -102,7 +105,7 @@ def adjustColumnWidths(ctx, nodeset):
     if relTotal == 0:
         for absPart in absParts:
             if foStylesheet:
-                inches = absPart / pixelsPerInch
+                inches = old_div(absPart, pixelsPerInch)
                 widths.append("%4.2fin" % inches)
             else:
                 widths.append("%d" % absPart)
@@ -131,7 +134,7 @@ def adjustColumnWidths(ctx, nodeset):
             for count in range(len(relParts)):
                 if foStylesheet:
                     pixels = relParts[count]
-                    inches = pixels / pixelsPerInch
+                    inches = old_div(pixels, pixelsPerInch)
                     widths.append("%4.2fin" % inches)
                 else:
                     widths.append(relParts[count])
@@ -188,7 +191,7 @@ def correctRoundingError(floatWidths):
         totalWidth = totalWidth + math.floor(width)
 
     totalError = 100 - totalWidth
-    columnError = totalError / len(widths)
+    columnError = old_div(totalError, len(widths))
     error = 0
     for count in range(len(widths)):
         width = widths[count]

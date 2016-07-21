@@ -6,6 +6,7 @@ There normally shouldn't be any need to import this module directly.
 It will usually be imported through the generic SCons.Tool.Tool()
 selection method.
 """
+from builtins import str
 
 #
 # __COPYRIGHT__

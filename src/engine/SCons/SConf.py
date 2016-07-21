@@ -34,6 +34,8 @@ libraries are installed, if some command line options are supported etc.
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 from __future__ import print_function
+from builtins import str
+from builtins import object
 
 __revision__ = "__FILE__ __REVISION__ __DATE__ __DEVELOPER__"
 
@@ -132,7 +134,7 @@ def CreateConfigHBuilder(env):
                                  _stringConfigH)
     sconfigHBld = SCons.Builder.Builder(action=action)
     env.Append( BUILDERS={'SConfigHBuilder':sconfigHBld} )
-    for k in _ac_config_hs.keys():
+    for k in list(_ac_config_hs.keys()):
         env.SConfigHBuilder(k, env.Value(_ac_config_hs[k]))
 
 
@@ -671,7 +673,7 @@ class SConfBase(object):
         """Adds all the tests given in the tests dictionary to this SConf
         instance
         """
-        for name in tests.keys():
+        for name in list(tests.keys()):
             self.AddTest(name, tests[name])
 
     def _createDir( self, node ):

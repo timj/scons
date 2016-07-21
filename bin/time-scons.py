@@ -1,3 +1,8 @@
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from builtins import map
+from builtins import object
 #!/usr/bin/env python
 #
 # time-scons.py:  a wrapper script for running SCons timings

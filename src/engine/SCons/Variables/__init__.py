@@ -3,6 +3,9 @@
 This file defines the Variables class that is used to add user-friendly
 customizable variables to an SCons build.
 """
+from builtins import map
+from builtins import str
+from builtins import object
 
 #
 # __COPYRIGHT__
@@ -185,7 +188,7 @@ class Variables(object):
         if args is None:
             args = self.args
 
-        for arg, value in args.items():
+        for arg, value in list(args.items()):
             added = False
             for option in self.options:
                 if arg in list(option.aliases) + [ option.key ]:

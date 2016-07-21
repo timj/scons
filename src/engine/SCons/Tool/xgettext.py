@@ -2,6 +2,8 @@
 
 Tool specific initialization of `xgettext` tool.
 """
+from builtins import str
+from builtins import object
 
 # __COPYRIGHT__
 #
@@ -56,7 +58,7 @@ class _CmdRunner(object):
     self.out, self.err = proc.communicate()
     self.status = proc.wait()
     if self.err:
-      sys.stderr.write(unicode(self.err))
+      sys.stderr.write(str(self.err))
     return self.status
 
   def strfunction(self, target, source, env):

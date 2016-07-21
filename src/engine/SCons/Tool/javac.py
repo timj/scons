@@ -7,6 +7,9 @@ It will usually be imported through the generic SCons.Tool.Tool()
 selection method.
 
 """
+from builtins import zip
+from builtins import map
+from builtins import object
 
 #
 # __COPYRIGHT__

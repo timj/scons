@@ -336,8 +336,9 @@ try:
         zf = zipfile.ZipFile(str(target[0]), 'w', compression=zipfile.ZIP_DEFLATED)
         olddir = os.getcwd()
         os.chdir(env['CD'])
-        try: os.path.walk(env['PSV'], visit, zf)
-        finally: os.chdir(olddir)
+        for root, dirs, files in os.walk(env['PSV']):
+            visit(zf, root, files)
+        os.chdir(olddir)
         zf.close()
 
     def unzipit(env, target, source):
@@ -375,16 +376,16 @@ def SCons_revision(target, source, env):
     # Note:  We construct the __*__ substitution strings here
     # so that they don't get replaced when this file gets
     # copied into the tree for packaging.
-    contents = contents.replace('__BUILD'     + '__', env['BUILD'])
-    contents = contents.replace('__BUILDSYS'  + '__', env['BUILDSYS'])
-    contents = contents.replace('__COPYRIGHT' + '__', env['COPYRIGHT'])
-    contents = contents.replace('__DATE'      + '__', env['DATE'])
-    contents = contents.replace('__DEVELOPER' + '__', env['DEVELOPER'])
-    contents = contents.replace('__FILE'      + '__', str(source[0]).replace('\\', '/'))
-    contents = contents.replace('__MONTH_YEAR'+ '__', env['MONTH_YEAR'])
-    contents = contents.replace('__REVISION'  + '__', env['REVISION'])
-    contents = contents.replace('__VERSION'   + '__', env['VERSION'])
-    contents = contents.replace('__NULL'      + '__', '')
+    contents = contents.replace(b'__BUILD'     + b'__', env['BUILD'].encode())
+    contents = contents.replace(b'__BUILDSYS'  + b'__', env['BUILDSYS'].encode())
+    contents = contents.replace(b'__COPYRIGHT' + b'__', env['COPYRIGHT'].encode())
+    contents = contents.replace(b'__DATE'      + b'__', env['DATE'].encode())
+    contents = contents.replace(b'__DEVELOPER' + b'__', env['DEVELOPER'].encode())
+    contents = contents.replace(b'__FILE'      + b'__', str(source[0]).replace('\\', '/').encode())
+    contents = contents.replace(b'__MONTH_YEAR'+ b'__', env['MONTH_YEAR'].encode())
+    contents = contents.replace(b'__REVISION'  + b'__', env['REVISION'].encode())
+    contents = contents.replace(b'__VERSION'   + b'__', env['VERSION'].encode())
+    contents = contents.replace(b'__NULL'      + b'__', b'')
     open(t, 'wb').write(contents)
     os.chmod(t, os.stat(s)[0])
 
@@ -419,7 +420,7 @@ def soelim(target, source, env):
 
 def soscan(node, env, path):
     c = node.get_text_contents()
-    return re.compile(br"^[\.']so\s+(\S+)", re.M).findall(c)
+    return re.compile(r"^[\.']so\s+(\S+)", re.M).findall(c)
 
 soelimbuilder = Builder(action = Action(soelim),
                         source_scanner = Scanner(soscan))
@@ -831,7 +832,7 @@ for p in [ scons ]:
         src_files.sort()
         f = open(str(target[0]), 'wb')
         for file in src_files:
-            f.write(file + "\n")
+            f.write(file.encode() + b"\n")
         f.close()
         return 0
     env.Command(os.path.join(build, 'MANIFEST'),
@@ -924,10 +925,10 @@ for p in [ scons ]:
         digest = os.path.join(gentoo, 'files', 'digest-scons-%s' % version)
         env.Command(ebuild, os.path.join('gentoo', 'scons.ebuild.in'), SCons_revision)
         def Digestify(target, source, env):
-            import md5
+            from hashlib import md5
             src = source[0].rfile()
-            contents = open(str(src)).read()
-            sig = md5.new(contents).hexdigest()
+            contents = open(str(src), 'rb').read()
+            sig = md5(contents).hexdigest()
             bytes = os.stat(str(src))[6]
             open(str(target[0]), 'w').write("MD5 %s %s %d\n" % (sig,
                                                                 src.name,

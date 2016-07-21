@@ -30,6 +30,11 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 from __future__ import division, print_function
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from builtins import range
+from builtins import object
 
 __revision__ = "__FILE__ __REVISION__ __DATE__ __DEVELOPER__"
 
@@ -652,7 +657,7 @@ class SConsTimer(object):
             sys.stderr.write('%s  Cannot use the "func" subcommand.\n' % self.name_spaces)
             sys.exit(1)
         statistics = pstats.Stats(file).stats
-        matches = [ e for e in statistics.items() if e[0][2] == function ]
+        matches = [ e for e in list(statistics.items()) if e[0][2] == function ]
         r = matches[0]
         return r[0][0], r[0][1], r[0][2], r[1][3]
 
@@ -1422,7 +1427,7 @@ class SConsTimer(object):
             elif o in ('--title',):
                 self.title = a
             elif o in ('--which',):
-                if not a in self.time_strings.keys():
+                if not a in list(self.time_strings.keys()):
                     sys.stderr.write('%s: time: Unrecognized timer "%s".\n' % (self.name, a))
                     sys.stderr.write('%s  Type "%s help time" for help.\n' % (self.name_spaces, self.name))
                     sys.exit(1)

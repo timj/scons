@@ -4,6 +4,9 @@ A module for executing actions with specific lists of target and source
 Nodes.
 
 """
+from builtins import str
+from builtins import map
+from builtins import object
 
 #
 # __COPYRIGHT__

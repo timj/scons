@@ -18,6 +18,10 @@ PARTICULAR PURPOSE.  THE CODE PROVIDED HEREUNDER IS ON AN "AS IS" BASIS,
 AND THERE IS NO OBLIGATION WHATSOEVER TO PROVIDE MAINTENANCE,
 SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 """
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from builtins import object
 
 __author__ = "Steven Knight <knight at baldmt dot com>"
 __revision__ = "TestCmdTests.py 1.3.D001 2010/06/03 12:58:27 knight"
@@ -26,13 +30,13 @@ import os
 import shutil
 import signal
 import stat
-from StringIO import StringIO
+from io import StringIO
 import sys
 import tempfile
 import time
 import types
 import unittest
-from UserList import UserList
+from collections import UserList
 
 
 # Strip the current directory so we get the right TestCmd.py module.
@@ -87,7 +91,7 @@ class TestCmdTestCase(unittest.TestCase):
         os.chdir(self.orig_cwd)
 
     def setup_run_scripts(self):
-        class T:
+        class T(object):
             pass
 
         t = T()

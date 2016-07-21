@@ -1,3 +1,6 @@
+from builtins import map
+from builtins import str
+from builtins import object
 #
 # __COPYRIGHT__
 #
@@ -315,16 +318,16 @@ class UtilTestCase(unittest.TestCase):
         assert to_String(s2) == 'foo', s2
 
         if HasUnicode:
-            s3=UserString(unicode('bar'))
+            s3=UserString(str('bar'))
             assert to_String(s3) == s3, s3
-            assert to_String(s3) == unicode('bar'), s3
-            assert isinstance(to_String(s3), unicode), \
+            assert to_String(s3) == str('bar'), s3
+            assert isinstance(to_String(s3), str), \
                    type(to_String(s3))
 
         if HasUnicode:
-            s4 = unicode('baz')
-            assert to_String(s4) == unicode('baz'), to_String(s4)
-            assert isinstance(to_String(s4), unicode), \
+            s4 = str('baz')
+            assert to_String(s4) == str('baz'), to_String(s4)
+            assert isinstance(to_String(s4), str), \
                    type(to_String(s4))
 
     def test_WhereIs(self):
@@ -732,7 +735,7 @@ bling \
 bling \ bling
 bling
 """
-        fobj = io.StringIO(unicode(content))
+        fobj = io.StringIO(str(content))
         lines = LogicalLines(fobj).readlines()
         assert lines == [
             '\n',
@@ -746,7 +749,7 @@ bling
         s1 = silent_intern("spam")
         # TODO: Python 3.x does not have a unicode() global function
         if sys.version[0] == '2':
-            s2 = silent_intern(unicode("unicode spam"))
+            s2 = silent_intern(str("unicode spam"))
         s3 = silent_intern(42)
         s4 = silent_intern("spam")
         assert id(s1) == id(s4)

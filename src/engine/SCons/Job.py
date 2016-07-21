@@ -5,6 +5,9 @@ complete a build. The Jobs class provides a higher level interface to start,
 stop, and wait on jobs.
 
 """
+from builtins import str
+from builtins import range
+from builtins import object
 
 #
 # __COPYRIGHT__

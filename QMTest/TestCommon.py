@@ -94,6 +94,8 @@ The TestCommon module also provides the following variables
 # SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
 from __future__ import print_function
+from builtins import filter
+from builtins import str
 
 __author__ = "Steven Knight <knight at baldmt dot com>"
 __revision__ = "TestCommon.py 1.3.D001 2010/06/03 12:58:27 knight"

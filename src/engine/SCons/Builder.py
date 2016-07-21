@@ -74,6 +74,10 @@ There are the following methods for internal use within this module:
         file names.
 
 """
+from builtins import zip
+from builtins import str
+from builtins import map
+from builtins import object
 
 #
 # __COPYRIGHT__
@@ -229,7 +233,7 @@ class OverrideWarner(collections.UserDict):
     def warn(self):
         if self.already_warned:
             return
-        for k in self.keys():
+        for k in list(self.keys()):
             if k in misleading_keywords:
                 alt = misleading_keywords[k]
                 msg = "Did you mean to use `%s' instead of `%s'?" % (alt, k)
@@ -423,11 +427,8 @@ class BuilderBase(object):
             src_builder = [ src_builder ]
         self.src_builder = src_builder
 
-    def __nonzero__(self):
-        raise InternalError("Do not test for the Node.builder attribute directly; use Node.has_builder() instead")
-
     def __bool__(self):
-        return self.__nonzero__()
+        raise InternalError("Do not test for the Node.builder attribute directly; use Node.has_builder() instead")
 
     def get_name(self, env):
         """Attempts to get the name of the Builder.

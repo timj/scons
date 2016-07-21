@@ -8,6 +8,8 @@ It will usually be imported through the generic SCons.Tool.Tool()
 selection method.
 
 """
+from builtins import zip
+from builtins import str
 
 #
 # __COPYRIGHT__
@@ -461,7 +463,7 @@ def DocbookEpub(env, target, source=None, *args, **kw):
             # Create xpath context
             xpath_context = doc.xpathNewContext()
             # Register namespaces
-            for key, val in nsmap.iteritems():
+            for key, val in list(nsmap.items()):
                 xpath_context.xpathRegisterNs(key, val)
 
             if hasattr(opf, 'xpathEval') and xpath_context:

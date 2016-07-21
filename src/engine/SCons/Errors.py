@@ -27,6 +27,7 @@ This file contains the exception classes used to handle internal
 and user errors in SCons.
 
 """
+from builtins import str
 
 __revision__ = "__FILE__ __REVISION__ __DATE__ __DEVELOPER__"
 

@@ -1,3 +1,5 @@
+from builtins import map
+from builtins import object
 #
 # __COPYRIGHT__
 #
@@ -255,7 +257,7 @@ def suite():
     suite.addTest(ProgramScannerTestCase8())
     suite.addTest(ProgramScannerTestCase9())
     suite.addTest(ProgramScannerTestCase10())
-    try: unicode
+    try: str
     except NameError: pass
     else:
         code = """if 1:

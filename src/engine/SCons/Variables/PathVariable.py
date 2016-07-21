@@ -44,6 +44,7 @@ Usage example:
                       '$qtdir/lib'))
 
 """
+from builtins import object
 
 #
 # __COPYRIGHT__

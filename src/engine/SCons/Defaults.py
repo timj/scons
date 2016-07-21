@@ -32,6 +32,9 @@ from distutils.msvccompiler.
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 from __future__ import division
+from builtins import map
+from builtins import str
+from builtins import object
 
 __revision__ = "__FILE__ __REVISION__ __DATE__ __DEVELOPER__"
 
@@ -264,7 +267,8 @@ def copy_func(dest, src, symlinks=True):
         shutil.copy2(src, dest)
         return 0
     else:
-        return shutil.copytree(src, dest, symlinks)
+        shutil.copytree(src, dest, symlinks)
+        return 0
 
 Copy = ActionFactory(
     copy_func,
@@ -459,7 +463,7 @@ def processDefines(defs):
                 else:
                     l.append(str(d[0]))
             elif SCons.Util.is_Dict(d):
-                for macro,value in d.items():
+                for macro,value in list(d.items()):
                     if value is not None:
                         l.append(str(macro) + '=' + str(value))
                     else:

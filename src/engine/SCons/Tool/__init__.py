@@ -12,6 +12,10 @@ their own "tool specification" in an arbitrary callable function.  No
 one needs to use or tie in to this subsystem in order to roll their own
 tool definition.
 """
+from __future__ import print_function
+from builtins import filter
+from builtins import str
+from builtins import object
 
 #
 # __COPYRIGHT__
@@ -98,8 +102,10 @@ for suffix in LaTeXSuffixes:
     SourceFileScanner.add_scanner(suffix, PDFLaTeXScanner)
 
 class Tool(object):
-    def __init__(self, name, toolpath=[], **kw):
+    def __init__(self, name, toolpath=None, **kw):
         self.name = name
+        if toolpath is None:
+            toolpath = []
         self.toolpath = toolpath + DefaultToolpath
         # remember these so we can merge them into the call
         self.init_kw = kw

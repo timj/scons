@@ -27,6 +27,7 @@ This configuration times simple Java compilation.
 We create $JAVA_COUNT on-disk Java files in a 'src' subdirectory,
 and the SConstruct file builds them.  That's it.
 """
+from builtins import range
 
 import TestSCons
 

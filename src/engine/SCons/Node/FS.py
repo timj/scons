@@ -32,6 +32,10 @@ that can be used by scripts or modules looking for the canonical default.
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 from __future__ import print_function
+from builtins import zip
+from builtins import map
+from builtins import str
+from builtins import object
 
 __revision__ = "__FILE__ __REVISION__ __DATE__ __DEVELOPER__"
 
@@ -696,7 +700,7 @@ class Base(SCons.Node.Node):
             return self._memo['_save_str']
         except KeyError:
             pass
-        result = sys.intern(self._get_str())
+        result = SCons.Util.silent_intern(self._get_str())
         self._memo['_save_str'] = result
         return result
 
@@ -1607,7 +1611,7 @@ class Dir(Base):
         This clears any cached information that is invalidated by changing
         the repository."""
 
-        for node in self.entries.values():
+        for node in list(self.entries.values()):
             if node != self.dir:
                 if node != self and isinstance(node, Dir):
                     node.__clearRepositoryCache(duplicate)
@@ -2179,7 +2183,7 @@ class Dir(Base):
             for x in excludeList:
                 r = self.glob(x, ondisk, source, strings)
                 excludes.extend(r)
-            result = filter(lambda x: not any(fnmatch.fnmatch(str(x), str(e)) for e in SCons.Util.flatten(excludes)), result)
+            result = [x for x in result if not any(fnmatch.fnmatch(str(x), str(e)) for e in SCons.Util.flatten(excludes))]
         return sorted(result, key=lambda a: str(a))
 
     def _glob1(self, pattern, ondisk=True, source=False, strings=False):
@@ -2203,7 +2207,7 @@ class Dir(Base):
             # We use the .name attribute from the Node because the keys of
             # the dir.entries dictionary are normalized (that is, all upper
             # case) on case-insensitive systems like Windows.
-            node_names = [ v.name for k, v in dir.entries.items()
+            node_names = [ v.name for k, v in list(dir.entries.items())
                            if k not in ('.', '..') ]
             names.extend(node_names)
             if not strings:
@@ -2481,7 +2485,7 @@ class FileNodeInfo(SCons.Node.NodeInfoBase):
         """
         # TODO check or discard version
         del state['_version_id']
-        for key, value in state.items():
+        for key, value in list(state.items()):
             if key not in ('__weakref__',):
                 setattr(self, key, value)
 
@@ -2664,13 +2668,15 @@ class File(Base):
         # them, but has a 'utf-8-sig' which does; 'utf-16' seems to
         # strip them; etc.)  Just sidestep all the complication by
         # explicitly stripping the BOM before we decode().
+        if not isinstance(contents, bytes):
+            return contents
         if contents.startswith(codecs.BOM_UTF8):
             return contents[len(codecs.BOM_UTF8):].decode('utf-8')
         if contents.startswith(codecs.BOM_UTF16_LE):
             return contents[len(codecs.BOM_UTF16_LE):].decode('utf-16-le')
         if contents.startswith(codecs.BOM_UTF16_BE):
             return contents[len(codecs.BOM_UTF16_BE):].decode('utf-16-be')
-        return contents
+        return contents.decode()
 
     def get_content_hash(self):
         """

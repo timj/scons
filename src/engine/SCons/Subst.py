@@ -3,6 +3,9 @@
 SCons string substitution.
 
 """
+from builtins import str
+from builtins import map
+from builtins import object
 
 #
 # __COPYRIGHT__

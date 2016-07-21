@@ -3,6 +3,8 @@
 The Scanner package for the SCons software construction utility.
 
 """
+from builtins import map
+from builtins import object
 
 #
 # __COPYRIGHT__
@@ -325,6 +327,7 @@ class Classic(Current):
     def __init__(self, name, suffixes, path_variable, regex, *args, **kw):
 
         self.cre = re.compile(SCons.Util.to_bytes(regex), re.M)
+        self.creu = re.compile(regex, re.M)
 
         def _scan(node, env, path=(), self=self):
             node = node.rfile()
@@ -348,7 +351,7 @@ class Classic(Current):
         return SCons.Node.FS._my_normcase(include)
 
     def find_include_names(self, node):
-        return self.cre.findall(node.get_text_contents())
+        return self.creu.findall(node.get_text_contents())
 
     def scan(self, node, path=()):
 
@@ -405,7 +408,7 @@ class ClassicCPP(Classic):
         return n, i
 
     def sort_key(self, include):
-        return SCons.Node.FS._my_normcase(b' '.join(include))
+        return SCons.Node.FS._my_normcase(' '.join(include))
 
 # Local Variables:
 # tab-width:4

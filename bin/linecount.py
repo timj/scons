@@ -22,6 +22,7 @@
 # non-comment lines.  The last figure (non-comment) lines is the most
 # interesting one for most purposes.
 from __future__ import division, print_function
+from builtins import object
 
 __revision__ = "__FILE__ __REVISION__ __DATE__ __DEVELOPER__"
 

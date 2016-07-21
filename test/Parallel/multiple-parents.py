@@ -25,6 +25,7 @@
 """
 Verify that a failed build action with -j works as expected.
 """
+from builtins import range
 
 __revision__ = "__FILE__ __REVISION__ __DATE__ __DEVELOPER__"
 

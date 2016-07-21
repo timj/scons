@@ -376,15 +376,15 @@ def SCons_revision(target, source, env):
     # Note:  We construct the __*__ substitution strings here
     # so that they don't get replaced when this file gets
     # copied into the tree for packaging.
-    contents = contents.replace(b'__BUILD'     + b'__', env['BUILD'].encode('ascii'))
-    contents = contents.replace(b'__BUILDSYS'  + b'__', env['BUILDSYS'].encode('ascii'))
-    contents = contents.replace(b'__COPYRIGHT' + b'__', env['COPYRIGHT'].encode('ascii'))
-    contents = contents.replace(b'__DATE'      + b'__', env['DATE'].encode('ascii'))
-    contents = contents.replace(b'__DEVELOPER' + b'__', env['DEVELOPER'].encode('ascii'))
-    contents = contents.replace(b'__FILE'      + b'__', str(source[0]).replace('\\', '/').encode('ascii'))
-    contents = contents.replace(b'__MONTH_YEAR'+ b'__', env['MONTH_YEAR'].encode('ascii'))
-    contents = contents.replace(b'__REVISION'  + b'__', env['REVISION'].encode('ascii'))
-    contents = contents.replace(b'__VERSION'   + b'__', env['VERSION'].encode('ascii'))
+    contents = contents.replace(b'__BUILD'     + b'__', env['BUILD'].encode())
+    contents = contents.replace(b'__BUILDSYS'  + b'__', env['BUILDSYS'].encode())
+    contents = contents.replace(b'__COPYRIGHT' + b'__', env['COPYRIGHT'].encode())
+    contents = contents.replace(b'__DATE'      + b'__', env['DATE'].encode())
+    contents = contents.replace(b'__DEVELOPER' + b'__', env['DEVELOPER'].encode())
+    contents = contents.replace(b'__FILE'      + b'__', str(source[0]).replace('\\', '/').encode())
+    contents = contents.replace(b'__MONTH_YEAR'+ b'__', env['MONTH_YEAR'].encode())
+    contents = contents.replace(b'__REVISION'  + b'__', env['REVISION'].encode())
+    contents = contents.replace(b'__VERSION'   + b'__', env['VERSION'].encode())
     contents = contents.replace(b'__NULL'      + b'__', b'')
     open(t, 'wb').write(contents)
     os.chmod(t, os.stat(s)[0])
@@ -832,7 +832,7 @@ for p in [ scons ]:
         src_files.sort()
         f = open(str(target[0]), 'wb')
         for file in src_files:
-            f.write(file.encode('ascii') + b"\n")
+            f.write(file.encode() + b"\n")
         f.close()
         return 0
     env.Command(os.path.join(build, 'MANIFEST'),

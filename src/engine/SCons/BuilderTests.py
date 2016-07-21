@@ -214,13 +214,13 @@ class BuilderTestCase(unittest.TestCase):
         x = builder.overrides['OVERRIDE']
         assert x == 'x', x
 
-    def test__nonzero__(self):
-        """Test a builder raising an exception when __nonzero__ is called
+    def test__bool__(self):
+        """Test a builder raising an exception when __bool__ is called
         """
         builder = SCons.Builder.Builder(action="foo")
         exc_caught = None
         try:
-            builder.__nonzero__()
+            builder.__bool__()
         except SCons.Errors.InternalError:
             exc_caught = 1
         assert exc_caught, "did not catch expected InternalError exception"

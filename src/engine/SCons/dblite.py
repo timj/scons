@@ -5,6 +5,7 @@ from builtins import str
 from builtins import object
 
 import SCons.compat
+from SCons.Util import is_String
 
 import os
 import pickle
@@ -17,13 +18,6 @@ ignore_corrupt_dbfiles = 0
 def corruption_warning(filename):
     print("Warning: Discarding corrupt database:", filename)
 
-try: str
-except NameError:
-    def is_string(s):
-        return isinstance(s, str)
-else:
-    def is_string(s):
-        return type(s) in (str, str)
 def is_bytes(s):
     return isinstance (s, bytes)
 try:
@@ -153,7 +147,7 @@ class dblite(object):
 
   def __setitem__(self, key, value):
     self._check_writable()
-    if (not is_string(key)):
+    if (not is_String(key)):
       raise TypeError("key `%s' must be a string but is %s" % (key, type(key)))
     if (not is_bytes(value)):
       raise TypeError("value `%s' must be a bytes but is %s" % (value, type(value)))

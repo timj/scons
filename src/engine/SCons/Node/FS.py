@@ -700,7 +700,7 @@ class Base(SCons.Node.Node):
             return self._memo['_save_str']
         except KeyError:
             pass
-        result = sys.intern(self._get_str())
+        result = SCons.Util.silent_intern(self._get_str())
         self._memo['_save_str'] = result
         return result
 

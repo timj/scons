@@ -2668,6 +2668,8 @@ class File(Base):
         # them, but has a 'utf-8-sig' which does; 'utf-16' seems to
         # strip them; etc.)  Just sidestep all the complication by
         # explicitly stripping the BOM before we decode().
+        if not isinstance(contents, bytes):
+            return contents
         if contents.startswith(codecs.BOM_UTF8):
             return contents[len(codecs.BOM_UTF8):].decode('utf-8')
         if contents.startswith(codecs.BOM_UTF16_LE):
